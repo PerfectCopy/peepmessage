@@ -1,24 +1,33 @@
----
 language: node_js
 node_js:
-  - "4"
-
+- '4'
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
 sudo: false
-
 cache:
   directories:
-    - node_modules
-
+  - node_modules
 before_install:
-  - npm config set spin false
-  - npm install -g bower
-  - bower --version
-  - npm install phantomjs-prebuilt
-  - node_modules/phantomjs-prebuilt/bin/phantomjs --version
-
+- npm config set spin false
+- npm install -g bower
+- bower --version
+- npm install phantomjs-prebuilt
+- node_modules/phantomjs-prebuilt/bin/phantomjs --version
 install:
-  - npm install
-  - bower install
-
+- npm install
+- bower install
 script:
-  - npm test
+- npm test
+deploy:
+  provider: heroku
+  api_key:
+    secure: kEnvjyHGjYRNqoWsoiLWA6CZxmd8CdPfFnzMT8zzMNVu44uDUCYGzzlo5ATSmOaOmsgb3g7RaXSG59TUFOGQ+iLOW3M40rUAJlZBKMl2SZqnrfRU0PZn0fhBpNcQcgbGO+BIruQ1+YoLySZSXqTRAPuQ0WaNAvGTfo/Dy1TlvKycagZlpx+xKLa9UxEDk4c5xmywHYNnqkqSd8O0RadtgvrAJoprdwwT6ALB2bTQiaBmUbS+gK8Z9D55GVk/Z2ZbP6NCW6rxXCcSTJxOY3qSBpS17JFQTzmmJNVek8/AH/WXftmEKVZ62YaZJdwrVylfWZoPn0SESEHvQxBGd/DUHejBcRcxkh3HFVkNdxakQIEjM1MAArovMnAYfHM17APHazGqDzTAUy++FURhNuCRVv61/NXFW8/9GVuJGzwlTF/uYxqe9VkPXELm2jEPhEFHsh4DUyCN9GNuwUzItQ7WoJY+XJMjSXxdjhiVVvMyLfEFjIrJJMaJMSxBSO5shVJ5qiCuKYT48jPfLz4LNes6sz2VQjqj3+SRRjR91YDFJcWcsJECjDj72y6WchdDdTELLp6khsdvo+WLiBovRnLn4vqaewydOlnkZy72AKvEh3g2WPNiwiCrXKxkUG62n0VrxIMhdIGsKUOPzeGSC5I/6LBfNEq0SPB2hfbQZozTxOY=
+  app: secret-headland-21604
+  on:
+    repo: PerfectCopy/peepmessage
